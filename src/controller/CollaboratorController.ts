@@ -22,7 +22,8 @@ class CollaboratorController {
         const serializedItems = items.map(item => {
             return { //TO DO
                 id: item.id,
-                title: item.title,
+                nome: item.name,
+                telefone: item.phone
     
             };
         });
@@ -35,17 +36,18 @@ class CollaboratorController {
             nome,
             telefone,
             cpf,
-            foto,
         } = request.body;
     
         const trx = await knex.transaction();
 
         const collaborator = {
-            nome,
-            telefone,
+            name: nome,
+            phone: telefone,
             cpf,
-            foto,
         }
+
+        console.log(request.body);
+        console.log(collaborator);
     
         const insertedIds = await trx('collaborator').insert(collaborator);
     

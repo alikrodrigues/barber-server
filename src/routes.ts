@@ -16,7 +16,13 @@ const scheduleController = new ScheduleController();
 
 routes.get('/collaborators', collaboratorController.getAll);
 routes.get('/collaborator/:id', collaboratorController.show);
+routes.post('/collaborator', collaboratorController.create);
 routes.get('/services', serviceControler.getAll);
+routes.post('/service', serviceControler.create);
+routes.get('/products', productController.getAll);
+routes.post('/product', productController.create);
+routes.post('/schedule', scheduleController.create);
+
 
 // routes.get('/points', pointsControler.index);
 // routes.post('/points', pointsControler.create);
