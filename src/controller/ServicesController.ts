@@ -17,6 +17,13 @@ class ServiceController {
         return response.json(serializedItems)
     };
 
+    async findByName (name: any) {
+        const item = await knex('service')
+        .where('service.name', name)
+        .select('*').first();
+        return item.id;
+    };
+
     async create (request: Request, response: Response) {
         const {
             nome,
