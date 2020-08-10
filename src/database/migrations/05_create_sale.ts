@@ -7,6 +7,9 @@ export async function up(knex: Knex) {
         table.integer('collaborator_id').unsigned().notNullable()
         .references('id')
         .inTable('collaborator');
+        table.integer('schedule_id').unsigned().notNullable()
+        .references('id')
+        .inTable('schedule');
         table.decimal('bill').notNullable();
     })
 }

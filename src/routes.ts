@@ -22,7 +22,9 @@ routes.post('/service', serviceControler.create);
 routes.get('/products', productController.getAll);
 routes.post('/product', productController.create);
 routes.get('/schedules', scheduleController.getScheduled);
+routes.get('/scheduleIndex/:id', scheduleController.getScheduleItem);
 routes.post('/schedule', scheduleController.create);
+routes.post('/fastsale/:id', saleController.fastSale);
 
 
 

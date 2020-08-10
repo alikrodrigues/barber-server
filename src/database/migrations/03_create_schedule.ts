@@ -1,5 +1,4 @@
-import * as Knex  from 'knex';
-
+import Knex from 'knex';
 
 export async function up(knex: Knex) {
     return knex.schema.createTable('schedule', table => {
@@ -8,8 +7,8 @@ export async function up(knex: Knex) {
         table.integer('collaborator_id').unsigned().notNullable()
         .references('id')
         .inTable('collaborator');
-        table.date('date_scheduled');
-        table.date('register_date');
+        table.dateTime('date_scheduled');
+        table.dateTime('register_date');
     })
 }
 
