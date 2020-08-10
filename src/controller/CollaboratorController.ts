@@ -45,9 +45,6 @@ class CollaboratorController {
             phone: telefone,
             cpf,
         }
-
-        console.log(request.body);
-        console.log(collaborator);
     
         const insertedIds = await trx('collaborator').insert(collaborator);
     

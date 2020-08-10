@@ -21,7 +21,9 @@ routes.get('/services', serviceControler.getAll);
 routes.post('/service', serviceControler.create);
 routes.get('/products', productController.getAll);
 routes.post('/product', productController.create);
+routes.get('/schedules', scheduleController.getScheduled);
 routes.post('/schedule', scheduleController.create);
+
 
 
 // routes.get('/points', pointsControler.index);
