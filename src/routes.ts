@@ -19,6 +19,7 @@ routes.get('/collaborator/:id', collaboratorController.show);
 routes.post('/collaborator', collaboratorController.create);
 routes.get('/services', serviceControler.getAll);
 routes.post('/service', serviceControler.create);
+routes.get('/products&services', productController.getAllAndServices);
 routes.get('/products', productController.getAll);
 routes.post('/product', productController.create);
 routes.get('/schedules', scheduleController.getScheduled);

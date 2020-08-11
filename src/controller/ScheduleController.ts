@@ -26,7 +26,7 @@ class ScheduleController {
         const {id} = request.params;
         const items = await knex('schedule as sch')
         .join('schedule_services as ss', 'ss.schedule_id', '=', 'sch.id')
-        .leftJoin('service as s', 'ss.service_id', '=', 's.id')
+        .leftJoin('item as s', 'ss.service_id', '=', 's.id')
         .where('sch.id', id)
         .select('sch.id as scheduleId','s.name as serviceName', 's.id as serviceId', 's.price as servicePrice');
 
@@ -61,7 +61,7 @@ class ScheduleController {
     
         const insertedIds = await trx('schedule').insert(schedule);
     
-        const services = await trx('service').whereIn('name', selectedServices);
+        const services = await trx('item').whereIn('name', selectedServices);
         
         const schedule_services =  services.map(row => {
             return {

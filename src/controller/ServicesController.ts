@@ -4,13 +4,14 @@ import { Request, Response } from 'express';
 class ServiceController {
 
     async getAll (request: Request, response: Response) {
-        const items = await knex('service').select('*');
+        const items = await knex('item').select('*');
 
         const serializedItems = items.map(item => {
             return { //TO DO
                 id: item.id,
                 name: item.name,
-                price: item.price
+                price: item.price,
+                type: item.type_id
             };
         });
     
@@ -18,8 +19,8 @@ class ServiceController {
     };
 
     async findByName (name: any) {
-        const item = await knex('service')
-        .where('service.name', name)
+        const item = await knex('item')
+        .where('item.name', name)
         .select('*').first();
         return item.id;
     };
@@ -38,10 +39,11 @@ class ServiceController {
             name: nome,
             price: preço,
             time: tempo,
-            note: observação
+            note: observação,
+            type_id: 2
         }
     
-        const insertedIds = await trx('service').insert(service);
+        const insertedIds = await trx('item').insert(service);
     
        
         await trx.commit();

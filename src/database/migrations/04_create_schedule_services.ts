@@ -5,7 +5,7 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.integer('service_id').unsigned().notNullable()
         .references('id')
-        .inTable('service');
+        .inTable('item');
         table.integer('schedule_id').unsigned().notNullable()
         .references('id')
         .inTable('schedule');

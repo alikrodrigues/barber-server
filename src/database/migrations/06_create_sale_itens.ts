@@ -1,11 +1,11 @@
 import * as Knex  from 'knex';
 
 export async function up(knex: Knex) {
-    return knex.schema.createTable('sale_products', table => {
+    return knex.schema.createTable('sale_itens', table => {
         table.increments('id').primary();
-        table.integer('product_id').unsigned().notNullable()
+        table.integer('item_id').unsigned().notNullable()
         .references('id')
-        .inTable('product');
+        .inTable('item');
         table.integer('sale_id').unsigned().notNullable()
         .references('id')
         .inTable('sale');
@@ -14,5 +14,5 @@ export async function up(knex: Knex) {
 
 
 export async function down(knex: Knex) {
-    return knex.schema.dropTable('sale_services');
+    return knex.schema.dropTable('sale_itens');
 }
