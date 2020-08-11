@@ -61,7 +61,7 @@ class ScheduleController {
     
         const insertedIds = await trx('schedule').insert(schedule);
     
-        const services = await trx('item').whereIn('name', selectedServices);
+        const services = await trx('item').whereIn('name', selectedServices).andWhere('type_id', 2);
         
         const schedule_services =  services.map(row => {
             return {

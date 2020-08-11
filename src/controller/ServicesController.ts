@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 class ServiceController {
 
     async getAll (request: Request, response: Response) {
-        const items = await knex('item').select('*');
+        const items = await knex('item').select('*').where('type_id', 2);
 
         const serializedItems = items.map(item => {
             return { //TO DO
@@ -21,6 +21,7 @@ class ServiceController {
     async findByName (name: any) {
         const item = await knex('item')
         .where('item.name', name)
+        .andWhere('item.type_id', 2)
         .select('*').first();
         return item.id;
     };

@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 class ProductController {
 
     async getAll (request: Request, response: Response) {
-        const items = await knex('item').select('*');
+        const items = await knex('item').select('*').where('type_id', 1);
 
         const serializedItems = items.map(item => {
             return { //TO DO
@@ -47,7 +47,8 @@ class ProductController {
         const product = {
             name: nome,
             price: preço,
-            note: observação
+            note: observação,
+            type_id: 1
         }
     
         const insertedIds = await trx('item').insert(product);

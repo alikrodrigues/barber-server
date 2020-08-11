@@ -9,7 +9,7 @@ export async function up(knex: Knex) {
         table.integer('type_id').unsigned().notNullable()
         .references('id')
         .inTable('item_type');
-        table.decimal('time').notNullable();
+        table.decimal('time');
         table.string('note');
         table.string('picture');
     })
