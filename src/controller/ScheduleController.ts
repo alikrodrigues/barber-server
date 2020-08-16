@@ -6,6 +6,8 @@ class ScheduleController {
     async getScheduled (request: Request, response: Response) {
         const items = await knex('schedule as sch')
         .join('collaborator as co', 'co.id','=','sch.collaborator_id')
+        .where('sch.finished', false)
+        .orWhereNull('sch.finished')
         .select('sch.id as scheduleId','sch.name as customerName','sch.date_scheduled','co.name as collaboratorName');
 
         
@@ -35,7 +37,8 @@ class ScheduleController {
                 id: item.serviceId,
                 name: item.serviceName,
                 price: item.servicePrice,
-                scheduleId: item.scheduleId
+                scheduleId: item.scheduleId,
+                quantity: 1
             };
         });
     

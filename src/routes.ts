@@ -26,6 +26,7 @@ routes.get('/schedules', scheduleController.getScheduled);
 routes.get('/scheduleIndex/:id', scheduleController.getScheduleItem);
 routes.post('/schedule', scheduleController.create);
 routes.post('/fastsale/:id', saleController.fastSale);
+routes.post('/sale', saleController.sale);
 
 
 

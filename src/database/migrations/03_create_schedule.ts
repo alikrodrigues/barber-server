@@ -9,6 +9,7 @@ export async function up(knex: Knex) {
         .inTable('collaborator');
         table.dateTime('date_scheduled');
         table.dateTime('register_date');
+        table.boolean('finished');
     })
 }
 
