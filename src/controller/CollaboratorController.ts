@@ -36,6 +36,7 @@ class CollaboratorController {
             nome,
             telefone,
             cpf,
+            shifts
         } = request.body;
     
         const trx = await knex.transaction();
@@ -47,7 +48,23 @@ class CollaboratorController {
         }
     
         const insertedIds = await trx('collaborator').insert(collaborator);
-    
+        
+        let newShifts = shifts.map((row: any) => {
+            var inArray = row.in.split(':'); // split it at the colons
+            var outArray = row.out.split(':'); // split it at the colons
+
+            var minutesIn = (+inArray[0]) * 60 + (+inArray[1]);
+            var minutesOut = (+outArray[0]) * 60 + (+outArray[1]);
+
+            return {
+                collaborator_id: insertedIds,
+                in: minutesIn,
+                out: minutesOut,
+                day: row.day
+            }
+        })
+
+        await trx('shifts').insert(newShifts);
        
         await trx.commit();
 
