@@ -11,7 +11,8 @@ class ServiceController {
                 id: item.id,
                 name: item.name,
                 price: item.price,
-                type: item.type_id
+                type: item.type_id,
+                picture: item.picture
             };
         });
     

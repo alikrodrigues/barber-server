@@ -37,12 +37,13 @@ class SaleController {
         if (scheduleId) {
             collaboratorId = await knex('schedule as sch').where('id', scheduleId).select('sch.collaborator_id').first();
             await trx('schedule').where('id', scheduleId).update('finished', true);
+            collaboratorId = collaboratorId.collaborator_id;
         }
 
         const sale = {
             schedule_id: scheduleId,
             bill: bill,
-            collaborator_id: collaboratorId.collaborator_id
+            collaborator_id: collaboratorId
         }
         const insertedId = await trx('sale').insert(sale);
 

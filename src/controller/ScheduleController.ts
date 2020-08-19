@@ -1,6 +1,6 @@
 import knex from '../database/connection'
 import { Request, Response } from 'express';
-
+import moment from 'moment';
 class ScheduleController {
 
     async getScheduled (request: Request, response: Response) {
@@ -80,6 +80,50 @@ class ScheduleController {
         return response.json({status: 'ok'});
     
     };
+
+    async createMobile (request: Request, response: Response) {
+        const {
+            nome,
+            collaborator,
+            services,
+            time
+        } = request.body;
+
+        const trx = await knex.transaction();
+
+        if (moment().diff(new Date(time), 'minutes') > 15) {
+            return response.status(400).json({message: 'Não é possível agendar com menos de 15 minutos de antecedência.'})
+        }
+
+        const schedules = await knex('schedule')
+        .join('schedule_services as ss', 'ss.schedule_id', '=', 'sch.id')
+        .leftJoin('item as s', 'ss.service_id', '=', 's.id')
+        .where('collaborator_id', collaborator)
+        .andWhere('date_scheduled','>=', moment(time).subtract(90, "minutes").toDate())
+        .andWhere('date_scheduled','<=', moment(time).add(90, "minutes").toDate());
+
+        if (schedules.length > 0) {
+            schedules.forEach(schedule => {
+                if(schedule.date_scheduled === new Date(time)) return response.status(400).json({message: 'Esse horário já não esta mais disponível.'});
+
+                if(moment(time).isAfter(schedule.date_scheduled)) {
+                    //TODO Printar o schedule e verificar qual o tipo de serviços agendados, fazer a soma dos minutos e verificar se passa do horário do time
+                }
+
+                if(moment(time).isBefore(schedule.date_scheduled)) {
+                    //TODO  verificar se o horário do time e fazer a soma dos minutos e verificar se passa do qual o date_scheduled do evento já existente 
+                }
+
+            })
+        }
+
+        const schedule = {
+            name: nome,
+            date_scheduled:  new Date(time),
+            register_date: new Date(),
+            collaborator_id: collaborator
+        }
+    }
 }
 
 export default ScheduleController;

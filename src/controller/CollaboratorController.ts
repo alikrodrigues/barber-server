@@ -31,6 +31,26 @@ class CollaboratorController {
         return response.json(serializedItems)
     };
 
+    async getFreeCollaborator (request: Request, response: Response) {
+        const {day} = request.params;
+       
+        const items = await knex('collaborator as c')
+        .join('shifts as sh', 'sh.collaborator_id' , '=', 'c.id' )
+        .where('sh.day', day)
+        .select('*');
+
+        const serializedItems = items.map(item => {
+            return { //TO DO
+                id: item.id,
+                nome: item.name,
+                telefone: item.phone
+    
+            };
+        });
+    
+        return response.json(serializedItems)
+    };
+
     async create (request: Request, response: Response) {
         const {
             nome,

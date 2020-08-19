@@ -15,6 +15,7 @@ const saleController = new SaleController();
 const scheduleController = new ScheduleController();
 
 routes.get('/collaborators', collaboratorController.getAll);
+routes.get('/collaborators/free/:day', collaboratorController.getAll);
 routes.get('/collaborator/:id', collaboratorController.show);
 routes.post('/collaborator', collaboratorController.create);
 routes.get('/services', serviceControler.getAll);
@@ -27,13 +28,6 @@ routes.get('/scheduleIndex/:id', scheduleController.getScheduleItem);
 routes.post('/schedule', scheduleController.create);
 routes.post('/fastsale/:id', saleController.fastSale);
 routes.post('/sale', saleController.sale);
-
-
-
-// routes.get('/points', pointsControler.index);
-// routes.post('/points', pointsControler.create);
-// routes.get('/point/:id', pointsControler.show);
-
 
 
 

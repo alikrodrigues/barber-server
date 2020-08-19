@@ -10,7 +10,7 @@ class ProductController {
             return { //TO DO
                 id: item.id,
                 name: item.name,
-    
+                price: item.price,
             };
         });
     
