@@ -64,22 +64,28 @@ class CollaboratorController {
         const collaborator = {
             name: nome,
             phone: telefone,
-            cpf,
+            cpf: cpf
         }
     
         const insertedIds = await trx('collaborator').insert(collaborator);
         
         let newShifts = shifts.map((row: any) => {
             var inArray = row.in.split(':'); // split it at the colons
+            var launchArray = row.launch.split(':'); // split it at the colons
+            var backArray = row.back.split(':'); // split it at the colons
             var outArray = row.out.split(':'); // split it at the colons
 
             var minutesIn = (+inArray[0]) * 60 + (+inArray[1]);
+            var minutesLaunch = (+launchArray[0]) * 60 + (+launchArray[1]);
+            var minutesBack = (+backArray[0]) * 60 + (+backArray[1]);
             var minutesOut = (+outArray[0]) * 60 + (+outArray[1]);
 
             return {
-                collaborator_id: insertedIds,
+                collaborator_id: insertedIds[0],
                 in: minutesIn,
-                out: minutesOut,
+                launch: minutesLaunch,
+                back: minutesBack ? minutesBack : null,
+                out: minutesOut ? minutesOut : null,
                 day: row.day
             }
         })
